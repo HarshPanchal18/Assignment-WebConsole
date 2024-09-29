@@ -1,7 +1,5 @@
-﻿using System;
-
-namespace AssignmentConsole.Model {
-    internal class AssignmentSubmission {
+﻿namespace AssignmentConsole.Model {
+    public class AssignmentSubmission {
         public int Id { get; set; }
         public int AssignmentId { get; set; }
         public int StudentId { get; set; }

@@ -1,5 +1,8 @@
-﻿namespace AssignmentConsole.Model {
-    internal class Student {
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AssignmentConsole.Model {
+    public class Student {
+        [Key]
         public int Id { get; set; }
         public int RollNo { get; set; }
         public string Name { get; set; }

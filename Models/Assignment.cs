@@ -1,5 +1,5 @@
-﻿namespace AssignmentConsole.Model {
-    internal class Assignment {
+﻿namespace AssignmentWebApplication.Models {
+    public class Assignment {
 
         public int Id { get; set; } // Assignment Id
         public int Number { get; set; } // Assignment Number

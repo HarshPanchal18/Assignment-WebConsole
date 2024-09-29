@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AssignmentConsole.Model {
-    internal class Teacher {
+﻿namespace AssignmentConsole.Model {
+    public class Teacher {
 
         public int Id { get; set; } // Teacher Id
         public string Name { get; set; } // Teacher Name

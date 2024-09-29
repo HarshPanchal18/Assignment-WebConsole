@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AssignmentConsole.Model {
-    internal class Subject {
+    public class Subject {
+        [Key]
         public string Code { get; set; } // Subject Code
         public string Name { get; set; }
 

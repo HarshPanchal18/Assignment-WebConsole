@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace AssignmentConsole.Model {
-    internal class Solution {
+﻿namespace AssignmentConsole.Model {
+    public class Solution {
         public static int Add(int n, int m) {
             return n + m;
         }

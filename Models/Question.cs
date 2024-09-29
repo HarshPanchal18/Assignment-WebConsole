@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AssignmentWebApplication.Models;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AssignmentConsole.Model {
-    internal class Question {
+    public class Question {
+        [Key]
         public int Id { get; set; }
 
+        [ForeignKey(nameof(Assignment.Id))]
         public int? AssignmentId { get; set; }
 
         public string Description { get; set; }

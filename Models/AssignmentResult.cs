@@ -1,5 +1,5 @@
 ﻿namespace AssignmentConsole.Model {
-    internal class AssignmentResult {
+    public class AssignmentResult {
         public int Id { get; set; }
         public int SubmissionId { get; set; }
         public int Score { get; set; }

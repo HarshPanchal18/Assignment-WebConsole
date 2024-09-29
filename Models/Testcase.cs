@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace AssignmentConsole.Model {
-    internal class Testcase<Toutput> {
+    public class Testcase<Toutput> {
 
         public Testcase(Toutput output, params (DataType, string)[] inputs) {
             Inputs = inputs;

@@ -1,7 +1,14 @@
-﻿namespace AssignmentConsole.Model {
-    internal class TeacherSubject {
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace AssignmentConsole.Model {
+    public class TeacherSubject {
+
+        [Key]
         public int Id { get; set; }
         public int TeacherId { get; set; }
+
+        [ForeignKey(nameof(Subject.Code))]
         public int SubjectId { get; set; }
 
         public TeacherSubject() { }
