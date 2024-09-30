@@ -1,7 +1,17 @@
+using AssignmentWebApplication.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+
+ServiceProvider provider = builder.Services.BuildServiceProvider();
+var config = provider.GetRequiredService<IConfiguration>();
+
+builder.Services.AddDbContext<DataContext>(item => item.UseNpgsql(config.GetConnectionString("WebApiDatabase")));
 
 var app = builder.Build();
 

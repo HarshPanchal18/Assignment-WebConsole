@@ -16,11 +16,11 @@ namespace AssignmentConsole.Model {
 
         public Toutput Output { get; set; }
 
-        public string InputValueDatatype { get; set; } = null;
+        public string InputValueDatatype { get; set; }
 
         public bool IsHidden { get; set; } = false;
 
-        public string OutputValueDatatype { get; set; } = null;
+        public string OutputValueDatatype { get; set; }
 
         public bool Status { get; set; } = false;
 
@@ -32,7 +32,7 @@ namespace AssignmentConsole.Model {
 
         public DateTime? DeletionTimestamp { get; set; }
 
-        public virtual Question Question { get; set; } = null;
+        public virtual Question Question { get; set; }
 
     }
 

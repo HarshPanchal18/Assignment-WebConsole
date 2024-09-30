@@ -1,0 +1,14 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Create Question";
+}
+
+<form asp-action="CreateQuestion" method="post">
+    <div class="form-group">
+        <label for="QuestionText">Question</label>
+        <input type="text" class="form-control" id="QuestionText" name="QuestionText" />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
