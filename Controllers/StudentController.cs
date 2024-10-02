@@ -56,25 +56,24 @@ namespace AssignmentWebApplication.Controllers {
             if (id == null)
                 return NotFound();
 
-            var student = await context.Students.FirstOrDefaultAsync(m => m.Id == id);
+            var student = await context.Students.FindAsync(id);
             if (student == null)
                 return NotFound();
 
-            return View();
+            return View(student);
         }
 
         // POST: /Student/Edit/2
         [HttpPost("Edit/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id) {
-            var student = context.Students.FirstOrDefault(m => m.Id == id);
-            if (student == null)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RollNo,Name,Semester")] Student student) {
+            if (id != student.Id)
                 return NotFound();
 
             if (ModelState.IsValid) {
+                context.Students.Update(student);
+                await context.SaveChangesAsync();
                 try {
-                    context.Students.Update(student);
-                    await context.SaveChangesAsync();
                 } catch (DbUpdateConcurrencyException) {
                     if (!StudentExists(student.Id)) {
                         return NotFound();
@@ -82,7 +81,6 @@ namespace AssignmentWebApplication.Controllers {
                         throw;
                     }
                 }
-
                 return RedirectToAction(nameof(Index));
             }
 
