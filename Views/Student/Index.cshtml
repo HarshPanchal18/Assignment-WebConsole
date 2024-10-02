@@ -20,7 +20,7 @@
             <th>Roll No</th>
             <th>Name</th>
             <th>Semester</th>
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -30,6 +30,10 @@
                 <td>@student.RollNo</td>
                 <td>@student.Name</td>
                 <td>@student.Semester</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@student.Id" class="btn btn-warning">Edit</a> <!-- Edit button -->
+                    <a asp-action="Delete" asp-route-id="@student.Id" class="btn btn-danger">Delete</a> <!-- Delete button -->
+                </td>
             </tr>
         }
     </tbody>

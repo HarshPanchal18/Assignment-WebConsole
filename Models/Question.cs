@@ -12,7 +12,7 @@ namespace AssignmentConsole.Model {
 
         public string Description { get; set; }
 
-        public bool? Status { get; set; }
+        public bool? Status { get; set; } = false;
 
         public bool Deleted { get; set; } = false;
 
