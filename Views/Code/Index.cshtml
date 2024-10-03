@@ -2,46 +2,41 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-<form id="codeForm" asp-action="CheckTestcases" method="get">
-    <label for="code">Enter C# Code:</label><br />
-    <textarea id="code" name="code" rows="10" cols="50"></textarea>
+<html>
 
-    <button type="button" onclick="runCode()">Run Code</button>
-</form>
+    <head>
+        <!-- Place the first <script> tag in your HTML's <head> -->
+        <script src="https://cdn.tiny.cloud/1/380tf1grjwix3w3f413dkxe5aeokjkete31pbn88lmt01adf/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
-<div id="editor">
-    function foo(items) {
-    var x = "All this is syntax highlighted";
-    return x;
-    }
-</div>
+    </head>
 
-<script src="/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-<script>
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/monokai");
-    editor.session.setMode("ace/mode/javascript");
-</script>
+    <body>
 
-<div id="results"></div>
-
-<script>
-    function runCode() {
-        const code = document.getElementById("code").value;
-
-        fetch('/Code', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ code: code })
-        })
-        .then(response => {
-                response.json()
-                console.log("Response: " + response.json())
-        })
-        .then(result => {
-            console.log("Result: " + result)
-            document.getElementById("results").innerHTML = result;
+    <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: [
+                // Core editing features
+                // 'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+                // Your account includes a free trial of TinyMCE premium features
+                // Try the most popular premium features until Oct 18, 2024:
+                // 'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown',
+            ],
+            // toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ],
+            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
         });
-    }
-</script>
+    </script>
 
+    <textarea>
+      Welcome to TinyMCE!
+    </textarea>
+
+    </body>
+</html>

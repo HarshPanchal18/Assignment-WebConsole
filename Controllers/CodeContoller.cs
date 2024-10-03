@@ -1,5 +1,4 @@
-﻿using AssignmentConsole.Model;
-using AssignmentWebApplication.Data;
+﻿using AssignmentWebApplication.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AssignmentWebApplication.Controllers {
