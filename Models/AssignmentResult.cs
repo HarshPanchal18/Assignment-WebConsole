@@ -1,6 +1,11 @@
-﻿namespace AssignmentConsole.Model {
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace AssignmentConsole.Model {
     public class AssignmentResult {
+        [Key]
         public int Id { get; set; }
+        [ForeignKey(nameof(AssignmentSubmission.Id))]
         public int SubmissionId { get; set; }
         public int Score { get; set; }
         public string Feedback { get; set; }

@@ -6,6 +6,7 @@ namespace AssignmentConsole.Model {
 
         [Key]
         public int Id { get; set; }
+        [ForeignKey(nameof(Teacher.Id))]
         public int TeacherId { get; set; }
 
         [ForeignKey(nameof(Subject.Code))]

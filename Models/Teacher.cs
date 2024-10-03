@@ -1,6 +1,9 @@
-﻿namespace AssignmentConsole.Model {
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AssignmentConsole.Model {
     public class Teacher {
 
+        [Key]
         public int Id { get; set; } // Teacher Id
         public string Name { get; set; } // Teacher Name
         public string Type { get; set; } // Type of teacher (optional)

@@ -1,6 +1,9 @@
-﻿namespace AssignmentWebApplication.Models {
-    public class Assignment {
+﻿using AssignmentConsole.Model;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace AssignmentWebApplication.Models {
+    public class Assignment {
         public int Id { get; set; } // Assignment Id
         public int Number { get; set; } // Assignment Number
         public int StudentId { get; set; } // StudentId whose submission

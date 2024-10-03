@@ -3,16 +3,16 @@
 namespace AssignmentConsole.Model {
     public class Testcase<Toutput> {
 
-        public Testcase(Toutput output, params (DataType, string)[] inputs) {
+        /*public Testcase(Toutput output, params (DataType, string)[] inputs) {
             Inputs = inputs;
             Output = output;
-        }
+        }*/
 
-        public int Id { get; set; }
+        /*public int Id { get; set; }
 
         public int QuestionId { get; set; }
 
-        public (DataType, string)[] Inputs { get; set; }
+        //public (DataType, string)[] Inputs { get; set; }
 
         public Toutput Output { get; set; }
 
@@ -30,9 +30,11 @@ namespace AssignmentConsole.Model {
 
         public DateTime? UpdationTimestamp { get; set; }
 
-        public DateTime? DeletionTimestamp { get; set; }
+        public DateTime? DeletionTimestamp { get; set; }*/
 
-        public virtual Question Question { get; set; }
+        // public virtual Question Question { get; set; }
+
+        public static void greet() { }
 
     }
 

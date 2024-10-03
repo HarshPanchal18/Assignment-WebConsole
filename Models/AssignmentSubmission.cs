@@ -1,7 +1,14 @@
-﻿namespace AssignmentConsole.Model {
+﻿using AssignmentWebApplication.Models;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace AssignmentConsole.Model {
     public class AssignmentSubmission {
+        [Key]
         public int Id { get; set; }
+        [ForeignKey(nameof(Assignment.Id))]
         public int AssignmentId { get; set; }
+        [ForeignKey(nameof(Student.Id))]
         public int StudentId { get; set; }
         public DateTime SubmissionDate { get; set; }
         public string Content { get; set; }

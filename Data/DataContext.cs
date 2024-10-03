@@ -23,7 +23,7 @@ namespace AssignmentWebApplication.Data {
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
         public virtual DbSet<TeacherSubject> TeacherSubjects { get; set; }
-        public virtual DbSet<Testcase<string>> Testcases { get; set; }
+        // public virtual DbSet<Testcase<string>> Testcases { get; set; }
 
     }
 }
