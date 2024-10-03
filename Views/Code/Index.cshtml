@@ -32,11 +32,46 @@
             ],
             ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
         });
+
+        function SendCode() {
+            // Get content from TinyMCE
+            const content = tinymce.get('code').getContent();
+            console.log(content)
+
+            // Create AssignmentSubmission object
+            const submission = {
+                AssignmentId: 1, // Replace with actual assignment ID
+                StudentId: 1,    // Replace with actual student ID
+                SubmissionDate: new Date().toISOString(), // Current date/time in ISO format
+                Content: content,
+                IsSubmitted: true // Set based on your logic
+            };
+
+            console.log(submission)
+
+            // Send content to server-side method
+            fetch('/Code/RunCsCode', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(submission)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
     </script>
 
-    <textarea>
+    <textarea id="code">
       Welcome to TinyMCE!
     </textarea>
+
+    <input type="button" value="Submit" onclick="SendCode()" class="btn btn-primary"/>
 
     </body>
 </html>
