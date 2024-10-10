@@ -1,4 +1,4 @@
-﻿using AssignmentConsole.Model;
+﻿using AssignmentWebApplication.Model;
 using AssignmentWebApplication.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

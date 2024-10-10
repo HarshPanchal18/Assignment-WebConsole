@@ -35,8 +35,12 @@
 
         function SendCode() {
             // Get content from TinyMCE
-            const content = tinymce.get('code').getContent();
-            console.log(content)
+            var content = tinymce.get('code').getContent();
+            // console.log(content);
+
+            content = stripHtml(content);
+
+            // console.log(content);
 
             // Create AssignmentSubmission object
             const submission = {
@@ -47,23 +51,24 @@
                 IsSubmitted: true // Set based on your logic
             };
 
-            console.log(submission)
+            // console.log(submission)
 
             // Send content to server-side method
             fetch('/Code/RunCsCode', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(submission)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+            }).then(response => response.json())
+                .then(data => console.log('Success:', data))
+                .catch(error => console.error('Error:', error))
+
+                document.getElementById("codesubmission").innerText = content
+        }
+
+        function stripHtml(html) { // strip down html elements like <p>, &nbsp; etc.
+            var tempDiv = document.createElement("div");
+            tempDiv.innerHTML = html;
+            return tempDiv.textContent || tempDiv.innerText || "";
         }
     </script>
 
@@ -72,6 +77,8 @@
     </textarea>
 
     <input type="button" value="Submit" onclick="SendCode()" class="btn btn-primary"/>
+
+    <p id="codesubmission"></p>
 
     </body>
 </html>

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AssignmentConsole.Model {
+namespace AssignmentWebApplication.Model {
     public class Student {
         [Key]
         public int Id { get; set; }

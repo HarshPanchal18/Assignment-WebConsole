@@ -1,4 +1,4 @@
-﻿namespace AssignmentConsole.Model {
+﻿namespace AssignmentWebApplication.Model {
     public class Solution {
         public static int Add(int n, int m) {
             return n + m;

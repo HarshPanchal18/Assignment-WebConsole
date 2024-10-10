@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AssignmentConsole.Model;
+using AssignmentWebApplication.Model;
 using AssignmentWebApplication.Data;
 
 namespace AssignmentWebApplication.Controllers {

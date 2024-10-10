@@ -1,4 +1,4 @@
-﻿using AssignmentConsole.Model;
+﻿using AssignmentWebApplication.Model;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

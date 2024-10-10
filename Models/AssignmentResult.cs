@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AssignmentConsole.Model {
+namespace AssignmentWebApplication.Model {
     public class AssignmentResult {
         [Key]
         public int Id { get; set; }

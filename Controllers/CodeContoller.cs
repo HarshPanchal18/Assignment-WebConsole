@@ -1,7 +1,6 @@
-﻿using AssignmentConsole.Model;
+﻿using AssignmentWebApplication.Model;
 using AssignmentWebApplication.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace AssignmentWebApplication.Controllers {
     [Route("Code")]
@@ -18,9 +17,6 @@ namespace AssignmentWebApplication.Controllers {
 
         [HttpPost("RunCsCode")]
         public async Task<IActionResult> RunCsCode([FromBody] AssignmentSubmission submission) {
-            if (submission == null) {
-                return BadRequest("Invalid submission data.");
-            }
 
             var logger = HttpContext.RequestServices.GetService<ILogger<CodeController>>();
 
@@ -30,11 +26,15 @@ namespace AssignmentWebApplication.Controllers {
             }
 
             // Log the submission content
-            logger.LogInformation("Received submission: {@Submission}", submission);
+            // logger.LogInformation("Received submission: {@Submission}", submission);
 
             string content = submission.Content; // Access the content sent from JavaScript
 
-            // Process the content as needed
+            Runner runner = new Runner();
+
+            var output = runner.RunCppProgram(content);
+
+            logger.LogInformation(output);
 
             return Json(new {
                 success = true,

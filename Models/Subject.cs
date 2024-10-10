@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AssignmentConsole.Model {
+namespace AssignmentWebApplication.Model {
     public class Subject {
         [Key]
         public string Code { get; set; } // Subject Code

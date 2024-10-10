@@ -1,4 +1,4 @@
-﻿namespace AssignmentConsole.Model {
+﻿namespace AssignmentWebApplication.Model {
     public class Testcase<Toutput> {
 
         /*public Testcase(Toutput output, params (DataType, string)[] inputs) {

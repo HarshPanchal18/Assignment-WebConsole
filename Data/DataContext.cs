@@ -1,4 +1,4 @@
-﻿using AssignmentConsole.Model;
+﻿using AssignmentWebApplication.Model;
 using AssignmentWebApplication.Models;
 using Microsoft.EntityFrameworkCore;
 
