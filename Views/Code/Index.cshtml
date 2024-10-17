@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="/monaco/min/vs/editor.main.css"/>
 }
 
+<div>
+    <label for="languageSelector">Select Language: </label>
+    <select id="languageSelector">
+        <option value="javascript">JavaScript</option>
+        <option value="python">Python</option>
+        <option value="java">Java</option>
+        <option value="cpp">C++</option>
+        <option value="csharp">C#</option>
+    </select>
+</div>
+
 <div id="editor" style="height: 500px"></div>
 
 @section Scripts {
@@ -20,19 +31,59 @@
     <script src="https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/editor/editor.main.js"></script>
 
     <script>
-        window.onload = function () { 
+        window.onload = function () {
+
+            // Boilerplate code for different languages
+            const boilerplateCode = {
+                javascript: `function helloWorld() {
+                                console.log("Hello, world!");
+                             }`,
+
+                python: `def hello_world():
+                            print("Hello, world!")`,
+
+                java: `public class HelloWorld {
+                            public static void main(String[] args) {
+                                System.out.println("Hello, world!");
+                            }
+                        }`,
+
+                cpp: `#include <iostream>
+
+                      int main() {
+                            std::cout << "Hello, world!" << std::endl;
+                            return 0;
+                      }`,
+
+                csharp: `using System;
+
+                        class Program {
+                            static void Main() {
+                                Console.WriteLine("Hello, world!");
+                            }
+                        }`
+            
+                    };
+
             let monacoOptions = {
                 language: "javascript",
                 automaticLayout:true,
                 // minimap: { editor : true },
-                value: [
-                    'function helloWorld() {',
-                    '\tconsole.log("Hello, world!");',
-                    '}'
-                ].join('\n'),
+                value: boilerplateCode.javascript,
             }
 
             window.monacoEditor = monaco.editor.create(document.getElementById("editor"), monacoOptions);
+
+            // Handle language change
+            document.getElementById('languageSelector').addEventListener('change', function (event) {
+                var selectedLanguage = event.target.value;
+
+                // Dynamically set the language of the editor based on selection
+                monaco.editor.setModelLanguage(window.monacoEditor.getModel(), selectedLanguage);
+
+                // Set editor content based on the selected language's boilerplate
+                window.monacoEditor.setValue(boilerplateCode[selectedLanguage]);
+            });
         }
 
     </script>
