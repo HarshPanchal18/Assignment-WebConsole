@@ -15,12 +15,12 @@ namespace AssignmentWebApplication.Controllers {
             return View();
         }
 
-        [HttpPost("RunCsCode")]
-        public async Task<IActionResult> RunCsCode([FromBody] AssignmentSubmission submission) {
+        [HttpPost("RunCode")]
+        public async Task<IActionResult> Run(string code) {
 
             var logger = HttpContext.RequestServices.GetService<ILogger<CodeController>>();
 
-            if (submission == null) {
+            /*if (submission == null) {
                 logger.LogWarning("Received null submission.");
                 return BadRequest("Invalid submission data.");
             }
@@ -34,16 +34,21 @@ namespace AssignmentWebApplication.Controllers {
 
             var output = runner.RunCsCode(content);
 
-            logger.LogInformation(output.ToString());
+            logger.LogInformation(output.ToString());*/
 
-            return Json(new {
+            logger.LogInformation(code);
+
+            // For now, just return a success response
+            return Json(new { success = true, message = "Code received" });
+
+            /*return Json(new {
                 success = true,
                 message = "Submission received successfully.",
                 receivedContent = content,
                 assignmentId = submission.AssignmentId,
                 studentId = submission.StudentId,
                 isSubmitted = submission.IsSubmitted
-            });
+            });*/
             // return Json(new { success = true });
         }
 

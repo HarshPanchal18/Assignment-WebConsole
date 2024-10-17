@@ -2,138 +2,65 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-<!--
-
-<html>
-
-    <head>
--->
-        <!-- Place the first <script> tag in your HTML's <head> -->
-<!--
-
-<script src="https://cdn.tiny.cloud/1/380tf1grjwix3w3f413dkxe5aeokjkete31pbn88lmt01adf/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-
-    </head>
-
-    <body>
--->
-
-    <!-- Place the following <script> and <textarea> tags your HTML's <body>
-    <script>
-        tinymce.init({
-            selector: 'textarea',
-            plugins: [
-                // Core editing features
-                // 'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-                // Your account includes a free trial of TinyMCE premium features
-                // Try the most popular premium features until Oct 18, 2024:
-                // 'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown',
-            ],
-            // toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-            tinycomments_mode: 'embedded',
-            tinycomments_author: 'Author name',
-            mergetags_list: [
-                { value: 'First.Name', title: 'First Name' },
-                { value: 'Email', title: 'Email' },
-            ],
-            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
-        });
-
-        function SendCode() {
-            // Get content from TinyMCE
-            var content = tinymce.get('code').getContent();
-            // console.log(content);
-
-            content = content.replace(/ +/g, ' '); // Replacing multiple whitespaces
-            content = content.replace("\302", ' '); // Replacing multiple whitespaces
-            content = content.replace("\240", ' '); // Replacing multiple whitespaces
-
-            content = stripHtml(content);
-
-            // console.log(content);
-
-            // Create AssignmentSubmission object
-            const submission = {
-                AssignmentId: 1, // Replace with actual assignment ID
-                StudentId: 1,    // Replace with actual student ID
-                SubmissionDate: new Date().toISOString(), // Current date/time in ISO format
-                Content: content,
-                IsSubmitted: true // Set based on your logic
-            };
-
-            // console.log(submission)
-
-            // Send content to server-side method
-            fetch('/Code/RunCsCode', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(submission)
-            }).then(response => response.json())
-                .then(data => console.log('Success:', data))
-                .catch(error => console.error('Error:', error))
-
-                document.getElementById("codesubmission").innerText = content
-        }
-
-        function stripHtml(html) { // strip down html elements like <p>, &nbsp; etc.
-            var tempDiv = document.createElement("div");
-            tempDiv.innerHTML = html;
-            return tempDiv.textContent || tempDiv.innerText || "";
-        }
-    </script>
-    <textarea id="code">
-      Welcome to TinyMCE!
-    </textarea>
- -->
-
-<!--
-
-    <input type="button" value="Submit" onclick="SendCode()" class="btn btn-primary"/>
-
-    <p id="codesubmission"></p>
-
-    </body>
-</html>
--->
-
-@section Styles 
+@section Styles
 {
-    <link rel="stylesheet" href="~/monaco/min/vs/editor.main.css"/>
+    <link rel="stylesheet" href="/monaco/min/vs/editor.main.css"/>
 }
 
-<div id="monacoEditor" style="height: 500px"></div>
+<div id="editor" style="height: 500px"></div>
 
 @section Scripts {
-    <script src="~/monaco/min/vs/loader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/loader.js"></script>
     <script>
         require.config({
-            paths: {
-                "vs": "./monaco/min/vs"
+            paths: { "vs": "https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs" }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/editor/editor.main.nls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/editor/editor.main.js"></script>
+
+    <script>
+        window.onload = function () { 
+            let monacoOptions = {
+                language: "javascript",
+                automaticLayout:true,
+                // minimap: { editor : true },
+                value: [
+                    'function helloWorld() {',
+                    '\tconsole.log("Hello, world!");',
+                    '}'
+                ].join('\n'),
+            }
+
+            window.monacoEditor = monaco.editor.create(document.getElementById("editor"), monacoOptions);
+        }
+
+    </script>
+
+    <button id="submitCode">Submit Code</button>
+
+    <script>
+        document.getElementById('submitCode').addEventListener('click', function () {
+            // Ensure monacoEditor is initialized before trying to get the value
+            if (window.monacoEditor) {
+                var code = window.monacoEditor.getValue(); // Fetch code from editor
+
+                // Send code to server using AJAX
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("RunCode", "Code")', // controller action
+                    data: { code: code },
+                    success: function (response) {
+                        alert('Code submitted successfully');
+                    },
+                    error: function () {
+                        alert('An error occurred while submitting the code');
+                    }
+                });
+            } else {
+                alert('Monaco Editor is not initialized yet');
             }
         });
     </script>
-    <script src="~/monaco/min/vs/editor/editor.main.nls.js"></script>
-    <script src="~/monaco/min/vs/editor/editor.main.js"></script>
 
-    <script>
-        let monacoOptions = {
-            language: "csharp",
-            automaticLayout:true,
-            minimap: {
-                editor : true
-            }
-        }
-        
-        /*let editor;
-        function initMonacoEditor(containerId) {
-
-            if (!document.getElementById(containerId))
-                alert("Editor error");
-
-            // let editor = monaco.editor.create(document.getElementById(containerId), monacoOptions);
-        }*/
-        
-        let editor = monaco.editor.create(document.getElementById(containerId), monacoOptions);
-
-    </script>
 }
