@@ -2,17 +2,23 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
+<!--
+
 <html>
 
     <head>
+-->
         <!-- Place the first <script> tag in your HTML's <head> -->
-        <script src="https://cdn.tiny.cloud/1/380tf1grjwix3w3f413dkxe5aeokjkete31pbn88lmt01adf/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<!--
+
+<script src="https://cdn.tiny.cloud/1/380tf1grjwix3w3f413dkxe5aeokjkete31pbn88lmt01adf/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
     </head>
 
     <body>
+-->
 
-    <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+    <!-- Place the following <script> and <textarea> tags your HTML's <body>
     <script>
         tinymce.init({
             selector: 'textarea',
@@ -37,6 +43,10 @@
             // Get content from TinyMCE
             var content = tinymce.get('code').getContent();
             // console.log(content);
+
+            content = content.replace(/ +/g, ' '); // Replacing multiple whitespaces
+            content = content.replace("\302", ' '); // Replacing multiple whitespaces
+            content = content.replace("\240", ' '); // Replacing multiple whitespaces
 
             content = stripHtml(content);
 
@@ -71,10 +81,12 @@
             return tempDiv.textContent || tempDiv.innerText || "";
         }
     </script>
-
     <textarea id="code">
       Welcome to TinyMCE!
     </textarea>
+ -->
+
+<!--
 
     <input type="button" value="Submit" onclick="SendCode()" class="btn btn-primary"/>
 
@@ -82,3 +94,46 @@
 
     </body>
 </html>
+-->
+
+@section Styles 
+{
+    <link rel="stylesheet" href="~/monaco/min/vs/editor.main.css"/>
+}
+
+<div id="monacoEditor" style="height: 500px"></div>
+
+@section Scripts {
+    <script src="~/monaco/min/vs/loader.js"></script>
+    <script>
+        require.config({
+            paths: {
+                "vs": "./monaco/min/vs"
+            }
+        });
+    </script>
+    <script src="~/monaco/min/vs/editor/editor.main.nls.js"></script>
+    <script src="~/monaco/min/vs/editor/editor.main.js"></script>
+
+    <script>
+        let monacoOptions = {
+            language: "csharp",
+            automaticLayout:true,
+            minimap: {
+                editor : true
+            }
+        }
+        
+        /*let editor;
+        function initMonacoEditor(containerId) {
+
+            if (!document.getElementById(containerId))
+                alert("Editor error");
+
+            // let editor = monaco.editor.create(document.getElementById(containerId), monacoOptions);
+        }*/
+        
+        let editor = monaco.editor.create(document.getElementById(containerId), monacoOptions);
+
+    </script>
+}

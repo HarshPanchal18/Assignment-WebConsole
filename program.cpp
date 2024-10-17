@@ -1,5 +1,12 @@
 #include<iostream>
-#include<stdio.h>
+class Program {
+public:
+static void Main() {
+// Console.WriteLine("Hello");
+std::cout << "Hash";
+}
+};
 int main() {
-printf("Hello World");
+std::cout<<"Hello";
+return 0;
 }

@@ -32,9 +32,9 @@ namespace AssignmentWebApplication.Controllers {
 
             Runner runner = new Runner();
 
-            var output = runner.RunCppProgram(content);
+            var output = runner.RunCsCode(content);
 
-            logger.LogInformation(output);
+            logger.LogInformation(output.ToString());
 
             return Json(new {
                 success = true,

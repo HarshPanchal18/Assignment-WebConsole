@@ -7,7 +7,7 @@ using System.Reflection;
 public class Runner {
     public Runner() { }
 
-    public void RunCsCode(string sourceCode) {
+    public bool RunCsCode(string sourceCode) {
         char[] whitespace = [' ', '\t', '\r', '\n'];
 
         try {
@@ -20,7 +20,7 @@ public class Runner {
             // Setting up the compiler
             var provider = new CSharpCodeProvider();
             var parameters = new CompilerParameters {
-                GenerateExecutable = true,
+                GenerateExecutable = false,
                 GenerateInMemory = true,
             };
 
@@ -47,13 +47,18 @@ public class Runner {
                 );
             }
 
+            return true;
+
         } catch (Win32Exception ex) {
             Console.WriteLine("System error...");
             Console.WriteLine(ex.Message);
+            return false;
         } catch (Exception ex) {
             Console.WriteLine("Unhandled Exception occurred...");
             Console.WriteLine(ex.Message);
+            return false;
         }
+
     }
 
     public void RunCprogram(string sourceCode) {
@@ -187,7 +192,7 @@ public class Runner {
         }
     }
 
-    public void RunJavaProgram(string sourceCode) {
+    public string RunJavaProgram(string sourceCode) {
         // Write source code to a temporary file
         string javaFile = "Program.java";
         File.WriteAllText(javaFile, sourceCode);
@@ -210,7 +215,7 @@ public class Runner {
         if (!string.IsNullOrEmpty(compileError)) {
             Console.WriteLine("Compilation errors:");
             Console.WriteLine(compileError);
-            return;
+            return compileError;
         }
 
         // Step 3: Run the compiled Java program using the java command
@@ -231,9 +236,11 @@ public class Runner {
         if (!string.IsNullOrEmpty(runError)) {
             Console.WriteLine("Runtime errors:");
             Console.WriteLine(runError);
+            return runError;
         } else {
             Console.WriteLine("Program output:");
             Console.WriteLine(runOutput);
+            return runOutput;
         }
     }
 }
