@@ -18,7 +18,7 @@
     </select>
 </div>
 
-<div id="editor" style="height: 500px"></div>
+<div id="editor" class="code-editor"></div>
 
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/loader.js"></script>
@@ -72,6 +72,12 @@ class Program {
                 language: "javascript",
                 automaticLayout:true,
                 // minimap: { editor : true },
+
+                // Disable suggestions
+                quickSuggestions: false,
+                suggestOnTriggerCharacters: false,
+                
+                parameterHints: { enabled: false }, // Optionally disable parameter hints
                 value: boilerplateCode.javascript,
             }
 
@@ -107,19 +113,6 @@ class Program {
                     Language: document.getElementById("languageSelector").value,
                     IsSubmitted: true // Set based on your logic
                 };
-
-                // Send code to server using AJAX
-                /*$.ajax({
-                    type: "POST",
-                    url: 'Url.Action("RunCode", "Code")', // controller action
-                    data: { code: code },
-                    success: function (response) {
-                        alert('Code submitted successfully');
-                    },
-                    error: function () {
-                        alert('An error occurred while submitting the code');
-                    }
-                });*/
 
                 // Send content to server-side method
                 fetch('/Code/RunCode', {
