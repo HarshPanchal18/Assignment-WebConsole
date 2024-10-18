@@ -21,10 +21,44 @@ body {
     margin-bottom: 60px;
 }
 
+.editor-container {
+    width: 100%;
+    border-radius: 16px;
+    border: 2px solid #ffae31;
+    background-color: lightslategray;
+}
+
+
+.editor-toolbar {
+    border-radius: 12px;
+    background-color: lightblue;
+    margin: 4px;
+    display: flex;
+}
+
+    .editor-toolbar button {
+        background-color: palegreen;
+        margin: 4px;
+        border-radius: 10px;
+    }
+
+    .editor-toolbar .separator {
+        background-color: gray;
+        width: 2px;
+        margin: 4px;
+    }
+
+.lang-picker {
+    color: gray;
+    font-weight: bold;
+    text-align: center;
+    margin: 4px;
+    border-radius: 8px;
+}
+
 .code-editor {
     height: 500px;
-    width: 100%;
-    margin-top: 10px;
-    border: 8px solid #ccc;
-    border-radius: 12px;
+    border-radius: 10px;
+    border: 6px solid #ccc;
+    margin: 8px 4px 4px 4px;
 }

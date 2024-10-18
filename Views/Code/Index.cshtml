@@ -7,18 +7,28 @@
     <link rel="stylesheet" href="/monaco/min/vs/editor.main.css"/>
 }
 
-<div>
-    <label for="languageSelector">Select Language: </label>
-    <select id="languageSelector">
-        <option value="javascript">JavaScript</option>
-        <option value="python">Python</option>
-        <option value="java">Java</option>
-        <option value="cpp">C++</option>
-        <option value="csharp">C#</option>
-    </select>
+<div class="editor-container">
+
+    <div class="editor-toolbar">
+
+        @* <label for="languageSelector">Select Language: </label> *@
+        <select id="languageSelector" class="lang-picker">
+            <option value="javascript">JavaScript</option>
+            <option value="python">Python</option>
+            <option value="java">Java</option>
+            <option value="cpp">C++</option>
+            <option value="csharp">C#</option>
+        </select>
+
+        <div class="separator"></div>
+
+        <button id="submitCode">Submit</button>
+    </div>
+
+    <div id="editor" class="code-editor"></div>
+
 </div>
 
-<div id="editor" class="code-editor"></div>
 
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/loader.js"></script>
@@ -35,17 +45,12 @@
 
             // Boilerplate code for different languages
             const boilerplateCode = {
-                javascript: 
-`function helloWorld() {
-    console.log("Hello, world!");
-}`,
+                javascript: `console.log("Hello, world!");`,
 
-                python: 
-`def hello_world():
-    print("Hello, world!")`,
+                python: `print("Hello, world!")`,
 
                 java:
-`public class HelloWorld {
+`public class Program {
     public static void main(String[] args) {
         System.out.println("Hello, world!");
     }
@@ -60,6 +65,7 @@ int main() {
 
                 csharp:
         `using System;
+
 class Program {
     static void Main() {
         Console.WriteLine("Hello, world!");
@@ -96,8 +102,6 @@ class Program {
         }
 
     </script>
-
-    <button id="submitCode">Submit Code</button>
 
     <script>
         document.getElementById('submitCode').addEventListener('click', function () {
