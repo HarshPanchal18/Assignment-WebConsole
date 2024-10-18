@@ -16,6 +16,7 @@
             <option value="javascript">JavaScript</option>
             <option value="python">Python</option>
             <option value="java">Java</option>
+            <option value="c">C</option>
             <option value="cpp">C++</option>
             <option value="csharp">C#</option>
         </select>
@@ -56,15 +57,24 @@
     }
 }`,
 
+                c:
+`#include <stdio.h>
+
+int main() {
+    printf("Hello, world!");
+    return 0;
+}`,
+
                 cpp: 
 `#include <iostream>
+
 int main() {
-    std::cout << "Hello, world!" << std::endl;
+    std::cout << "Hello, world!";
     return 0;
 }`,
 
                 csharp:
-        `using System;
+`using System;
 
 class Program {
     static void Main() {
@@ -72,7 +82,7 @@ class Program {
     }
 }`
             
-                    };
+            };
 
             let monacoOptions = {
                 language: "javascript",
@@ -83,8 +93,26 @@ class Program {
                 quickSuggestions: false,
                 suggestOnTriggerCharacters: false,
                 
-                parameterHints: { enabled: false }, // Optionally disable parameter hints
+                parameterHints: { enabled: false }, // disable parameter hints
                 value: boilerplateCode.javascript,
+
+                // lineNumbers: 'on',          // Show line numbers ('off' to hide)
+                // rulers: [80, 120],          // Show vertical rulers at character 80 and 120
+                // wordWrap: 'on',             // Enable word wrap
+
+                // inherit: true, // Inherit default settings
+                /*rules: [
+                    { token: 'comment', foreground: 'ffa500', fontStyle: 'italic' },  // Comment color and style
+                    { token: 'keyword', foreground: 'ff0000' }, // Keyword color
+                ],*/
+                /*colors: {
+                    'editor.background': '#1E1E1E',  // Background color
+                    'editor.foreground': '#FFFFFF',  // Text color
+                    'editorCursor.foreground': '#00FF00', // Cursor color
+                },*/
+
+                folding: true,        // Enable code folding
+                matchBrackets: 'always',  // Enable bracket matching
             }
 
             window.monacoEditor = monaco.editor.create(document.getElementById("editor"), monacoOptions);

@@ -45,14 +45,14 @@ public class Runner {
         }
     }
 
-    public void RunCprogram(string sourceCode) {
+    public string RunCprogram(string sourceCode) {
 
         string sourceFile = "program.c";
         File.WriteAllText(sourceFile, sourceCode); // Write source code to a file
 
         // Compile C++ code
         Process compileProcess = new Process();
-        compileProcess.StartInfo.FileName = "g++"; // You need to have g++ or any C++ compiler installed
+        compileProcess.StartInfo.FileName = "gcc"; // You need to have g++ or any C++ compiler installed
         compileProcess.StartInfo.Arguments = $"{sourceFile} -o program.exe"; // Compile to executable
         compileProcess.StartInfo.RedirectStandardOutput = true;
         compileProcess.StartInfo.RedirectStandardError = true;
@@ -68,7 +68,7 @@ public class Runner {
         if (!string.IsNullOrEmpty(compileError)) {
             Console.WriteLine("Compilation errors:");
             Console.WriteLine(compileError);
-            return;
+            return compileError;
         }
 
         // Run the compiled program
@@ -88,9 +88,11 @@ public class Runner {
         if (!string.IsNullOrEmpty(runtimeError)) {
             Console.WriteLine("Runtime errors:");
             Console.WriteLine(runtimeError);
+            return runtimeError;
         } else {
             Console.WriteLine("Program output:");
             Console.WriteLine(runOutput);
+            return runOutput;
         }
 
     }

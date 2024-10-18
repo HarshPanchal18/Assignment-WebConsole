@@ -28,7 +28,7 @@ namespace AssignmentWebApplication.Controllers {
             // Log the submission content
             logger.LogInformation("Received submission: {@Submission}", submission);
 
-            string content = submission.Content; // Access the content sent from JavaScript
+            string sourceCode = submission.Content; // Access the content sent from JavaScript
 
             Runner runner = new Runner();
 
@@ -36,23 +36,27 @@ namespace AssignmentWebApplication.Controllers {
 
             switch (submission.Language) {
                 case "javascript":
-                    output = runner.RunJsProgram(content);
+                    output = runner.RunJsProgram(sourceCode);
                     break;
 
                 case "python":
-                    output = runner.RunPythonProgram(content);
+                    output = runner.RunPythonProgram(sourceCode);
                     break;
 
                 case "java":
-                    output = runner.RunJavaProgram(content);
+                    output = runner.RunJavaProgram(sourceCode);
+                    break;
+
+                case "c":
+                    output = runner.RunCprogram(sourceCode);
                     break;
 
                 case "cpp":
-                    output = runner.RunCppProgram(content);
+                    output = runner.RunCppProgram(sourceCode);
                     break;
 
                 case "csharp":
-                    output = runner.RunCsCode(content);
+                    output = runner.RunCsCode(sourceCode);
                     break;
 
             }
@@ -60,7 +64,7 @@ namespace AssignmentWebApplication.Controllers {
             return Json(new {
                 success = true,
                 message = "Submission received successfully.",
-                receivedContent = content,
+                receivedContent = sourceCode,
                 submissionOutput = output,
                 language = submission.Language,
                 assignmentId = submission.AssignmentId,
