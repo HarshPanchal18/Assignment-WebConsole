@@ -1,64 +1,48 @@
-﻿using Microsoft.CSharp;
-using System.CodeDom.Compiler;
-using System.ComponentModel;
+﻿using Microsoft.CodeAnalysis.Scripting;
+using Microsoft.CodeAnalysis.CSharp.Scripting;
 using System.Diagnostics;
+using Microsoft.CodeAnalysis;
 using System.Reflection;
+using System.CodeDom.Compiler;
+using Microsoft.CSharp;
 
 public class Runner {
     public Runner() { }
 
-    public bool RunCsCode(string sourceCode) {
+    public string RunCsCode(string sourceCode) {
         char[] whitespace = [' ', '\t', '\r', '\n'];
 
         try {
 
-            // Trimming whitespaces from the source code.
-            string[] trimmedCode = sourceCode.Split(whitespace, StringSplitOptions.RemoveEmptyEntries);
+            // Redirecting Console output
+            var stringWriter = new StringWriter();
+            Console.SetOut(TextWriter.Null);
 
-            sourceCode = string.Join(" ", trimmedCode);
+            var validAsm = AppDomain.CurrentDomain
+                            .GetAssemblies()
+                            .Where(a => !a.IsDynamic && !string.IsNullOrEmpty(a.Location))
+                            .Select(a => MetadataReference.CreateFromFile(a.Location))
+                            .ToList();
 
-            // Setting up the compiler
-            var provider = new CSharpCodeProvider();
-            var parameters = new CompilerParameters {
-                GenerateExecutable = false,
-                GenerateInMemory = true,
-            };
+            var options = ScriptOptions.Default
+                            .WithReferences(validAsm)
+                            .WithImports("System", "System.Linq");
 
-            // add a reference to following assemblies, necessary for the code to run.
-            parameters.ReferencedAssemblies.Add("System.dll"); // for the core functionalities of .NET such as primitive types, collections
-            parameters.ReferencedAssemblies.Add("System.Core.dll"); // to support advanced features like LINQ, lambda expressions
+            // Running the script
+            var result = CSharpScript.RunAsync(sourceCode, options).Result;
 
-            // Compiling the source-code into an assembly
-            CompilerResults results = provider.CompileAssemblyFromSource(parameters, sourceCode);
+            // Capturing the output of Console.WriteLine
+            var output = stringWriter.ToString();
 
-            if (results.Errors.Count > 0) { // Compilation error
-                foreach (CompilerError error in results.Errors) {
-                    Console.WriteLine($"Error ({error.ErrorNumber}): {error.ErrorText}");
-                }
-            } else {
-                Assembly assembly = results.CompiledAssembly;
-                Type programType = assembly.GetType("Program"); // ClassName of the source-code which contains Main()
-                MethodInfo mainMethod = programType.GetMethod("Main"); // Provide entry point method name to start from
+            return string.IsNullOrEmpty(output) ? "NULL" : output;
 
-                // Invoke the Main method
-                mainMethod.Invoke(
-                    null, // Main is a static mwthod.
-                    null // no arguments are needed. e.x., string[] args = { "arg1", "arg2" }; mainMethod.Invoke(null, new object[] { args });
-                );
-            }
+            // return result?.ToString() ?? "No result";
 
-            return true;
-
-        } catch (Win32Exception ex) {
-            Console.WriteLine("System error...");
-            Console.WriteLine(ex.Message);
-            return false;
+        } catch (CompilationErrorException ex) {
+            return "Compilation Error: " + string.Join(Environment.NewLine, ex.Diagnostics);
         } catch (Exception ex) {
-            Console.WriteLine("Unhandled Exception occurred...");
-            Console.WriteLine(ex.Message);
-            return false;
+            return "Execution Error: " + ex.Message;
         }
-
     }
 
     public void RunCprogram(string sourceCode) {
@@ -161,7 +145,7 @@ public class Runner {
         }
     }
 
-    public void RunPythonProgram(string sourceCode) {
+    public string RunPythonProgram(string sourceCode) {
 
         string pythonFile = "Program.py";
         File.WriteAllText(pythonFile, sourceCode);
@@ -186,9 +170,11 @@ public class Runner {
         if (!string.IsNullOrEmpty(error)) {
             Console.WriteLine("Python errors:");
             Console.WriteLine(error);
+            return error;
         } else {
             Console.WriteLine("Python output:");
             Console.WriteLine(output);
+            return output;
         }
     }
 
@@ -241,6 +227,31 @@ public class Runner {
             Console.WriteLine("Program output:");
             Console.WriteLine(runOutput);
             return runOutput;
+        }
+    }
+
+    public string RunJsProgram(string sourceCode) {
+        string tempFile = "script.js"; // Path for the temporary JavaScript file
+
+        // Write the JS code to a temporary file
+        File.WriteAllText(tempFile, sourceCode);
+
+        // Set up process info to run Node.js
+        ProcessStartInfo start = new ProcessStartInfo {
+            FileName = "node", // Node.js executable
+            Arguments = tempFile, // Pass the temp JS file to node
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            CreateNoWindow = true
+        };
+
+        // Execute the JavaScript file
+        using (Process process = Process.Start(start)) {
+            using (StreamReader reader = process.StandardOutput) {
+                string result = reader.ReadToEnd();
+                return result;
+            }
         }
     }
 }

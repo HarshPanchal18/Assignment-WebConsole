@@ -52,7 +52,7 @@
 }`,
 
                 cpp: 
-`#include <iostream
+`#include <iostream>
 int main() {
     std::cout << "Hello, world!" << std::endl;
     return 0;
@@ -99,10 +99,19 @@ class Program {
             if (window.monacoEditor) {
                 var code = window.monacoEditor.getValue(); // Fetch code from editor
 
+                const submission = {
+                    AssignmentId: 1, // Replace with actual assignment ID
+                    StudentId: 1,    // Replace with actual student ID
+                    SubmissionDate: new Date().toISOString(), // Current date/time in ISO format
+                    Content: window.monacoEditor.getValue(),
+                    Language: document.getElementById("languageSelector").value,
+                    IsSubmitted: true // Set based on your logic
+                };
+
                 // Send code to server using AJAX
-                $.ajax({
+                /*$.ajax({
                     type: "POST",
-                    url: '@Url.Action("RunCode", "Code")', // controller action
+                    url: 'Url.Action("RunCode", "Code")', // controller action
                     data: { code: code },
                     success: function (response) {
                         alert('Code submitted successfully');
@@ -110,7 +119,17 @@ class Program {
                     error: function () {
                         alert('An error occurred while submitting the code');
                     }
-                });
+                });*/
+
+                // Send content to server-side method
+                fetch('/Code/RunCode', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(submission)
+                }).then(response => response.json())
+                    .then(data => console.log('Success:', data))
+                    .catch(error => console.error('Error:', error))
+
             } else {
                 alert('Monaco Editor is not initialized yet');
             }

@@ -12,6 +12,7 @@ namespace AssignmentWebApplication.Model {
         public int StudentId { get; set; }
         public DateTime SubmissionDate { get; set; }
         public string Content { get; set; }
+        public string Language { get; set; }
         public bool IsSubmitted { get; set; }
 
         public AssignmentSubmission() { }

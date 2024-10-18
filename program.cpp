@@ -1,12 +1,5 @@
-#include<iostream>
-class Program {
-public:
-static void Main() {
-// Console.WriteLine("Hello");
-std::cout << "Hash";
-}
-};
+#include <iostream>
 int main() {
-std::cout<<"Hello";
-return 0;
+    std::cout << "Hello, world!";
+    return 0;
 }

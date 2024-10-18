@@ -16,40 +16,57 @@ namespace AssignmentWebApplication.Controllers {
         }
 
         [HttpPost("RunCode")]
-        public async Task<IActionResult> Run(string code) {
+        public IActionResult RunCode([FromBody] AssignmentSubmission submission) {
 
-            var logger = HttpContext.RequestServices.GetService<ILogger<CodeController>>();
+            ILogger<CodeController> logger = HttpContext.RequestServices.GetService<ILogger<CodeController>>()!;
 
-            /*if (submission == null) {
+            if (submission == null) {
                 logger.LogWarning("Received null submission.");
                 return BadRequest("Invalid submission data.");
             }
 
             // Log the submission content
-            // logger.LogInformation("Received submission: {@Submission}", submission);
+            logger.LogInformation("Received submission: {@Submission}", submission);
 
             string content = submission.Content; // Access the content sent from JavaScript
 
             Runner runner = new Runner();
 
-            var output = runner.RunCsCode(content);
+            string output = "";
 
-            logger.LogInformation(output.ToString());*/
+            switch (submission.Language) {
+                case "javascript":
+                    output = runner.RunJsProgram(content);
+                    break;
 
-            logger.LogInformation(code);
+                case "python":
+                    output = runner.RunPythonProgram(content);
+                    break;
 
-            // For now, just return a success response
-            return Json(new { success = true, message = "Code received" });
+                case "java":
+                    output = runner.RunJavaProgram(content);
+                    break;
 
-            /*return Json(new {
+                case "cpp":
+                    output = runner.RunCppProgram(content);
+                    break;
+
+                case "csharp":
+                    output = runner.RunCsCode(content);
+                    break;
+
+            }
+
+            return Json(new {
                 success = true,
                 message = "Submission received successfully.",
                 receivedContent = content,
+                submissionOutput = output,
+                language = submission.Language,
                 assignmentId = submission.AssignmentId,
                 studentId = submission.StudentId,
                 isSubmitted = submission.IsSubmitted
-            });*/
-            // return Json(new { success = true });
+            });
         }
 
     }
