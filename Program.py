@@ -1,4 +1,5 @@
-def hello_world():
-    print("Hello, world!")
+print("Hello, world!")
 
-hello_world()
+time = 1
+
+print(time)

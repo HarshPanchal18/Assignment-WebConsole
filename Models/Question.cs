@@ -28,7 +28,5 @@ namespace AssignmentWebApplication.Model {
 
         public virtual Assignment Assignment { get; set; }
 
-        //public virtual ICollection<Testcase> Testcases { get; set; } = new List<Testcase>();
-
     }
 }

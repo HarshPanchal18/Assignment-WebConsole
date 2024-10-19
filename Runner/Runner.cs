@@ -2,9 +2,6 @@
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using System.Diagnostics;
 using Microsoft.CodeAnalysis;
-using System.Reflection;
-using System.CodeDom.Compiler;
-using Microsoft.CSharp;
 
 public class Runner {
     public Runner() { }
@@ -68,7 +65,7 @@ public class Runner {
         if (!string.IsNullOrEmpty(compileError)) {
             Console.WriteLine("Compilation errors:");
             Console.WriteLine(compileError);
-            return compileError;
+            return "Compile Error: " + compileError;
         }
 
         // Run the compiled program
@@ -88,7 +85,7 @@ public class Runner {
         if (!string.IsNullOrEmpty(runtimeError)) {
             Console.WriteLine("Runtime errors:");
             Console.WriteLine(runtimeError);
-            return runtimeError;
+            return "Runtime Error: " + runtimeError;
         } else {
             Console.WriteLine("Program output:");
             Console.WriteLine(runOutput);
@@ -119,7 +116,7 @@ public class Runner {
         if (!string.IsNullOrEmpty(compileError)) {
             Console.WriteLine("Compilation errors:");
             Console.WriteLine(compileError);
-            return compileError;
+            return "Compile Error: " + compileError;
         }
 
         // Run the compiled program
@@ -139,7 +136,7 @@ public class Runner {
         if (!string.IsNullOrEmpty(runtimeError)) {
             Console.WriteLine("Runtime errors:");
             Console.WriteLine(runtimeError);
-            return runtimeError;
+            return "Runtime Error: " + runtimeError;
         } else {
             Console.WriteLine("Program output:");
             Console.WriteLine(runOutput);
@@ -203,7 +200,7 @@ public class Runner {
         if (!string.IsNullOrEmpty(compileError)) {
             Console.WriteLine("Compilation errors:");
             Console.WriteLine(compileError);
-            return compileError;
+            return "Compile Error: " + compileError;
         }
 
         // Step 3: Run the compiled Java program using the java command
@@ -224,7 +221,7 @@ public class Runner {
         if (!string.IsNullOrEmpty(runError)) {
             Console.WriteLine("Runtime errors:");
             Console.WriteLine(runError);
-            return runError;
+            return "Runtime Error: " + runError;
         } else {
             Console.WriteLine("Program output:");
             Console.WriteLine(runOutput);
@@ -249,7 +246,7 @@ public class Runner {
         };
 
         // Execute the JavaScript file
-        using (Process process = Process.Start(start)) {
+        using (Process process = Process.Start(start)!) {
             using (StreamReader reader = process.StandardOutput) {
                 string result = reader.ReadToEnd();
                 return result;

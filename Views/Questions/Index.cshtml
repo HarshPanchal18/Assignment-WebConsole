@@ -1,0 +1,83 @@
+﻿@model IEnumerable<AssignmentWebApplication.Model.Question>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreationTimestamp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdationTimestamp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeletionTimestamp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FunctionSignature)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParameterCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Assignment)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Deleted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationTimestamp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdationTimestamp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeletionTimestamp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FunctionSignature)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParameterCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Assignment.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -28,6 +28,8 @@
 
     <div id="editor" class="code-editor"></div>
 
+    <div id="submitResponse" class="alert alert-warning mt-3 ms-1 me-1 text-black font-monospace" role="alert"></div>
+
 </div>
 
 
@@ -41,6 +43,7 @@
     <script src="https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/editor/editor.main.nls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/editor/editor.main.js"></script>
 
+    @* Configuring & styling editor *@
     <script>
         window.onload = function () {
 
@@ -127,12 +130,20 @@ class Program {
                 // Set editor content based on the selected language's boilerplate
                 window.monacoEditor.setValue(boilerplateCode[selectedLanguage]);
             });
+
+            document.getElementById("submitResponse").style.display = "none";
         }
 
     </script>
 
+    @* On Submit event *@
     <script>
+
+        var responseElement = document.getElementById("submitResponse")
         document.getElementById('submitCode').addEventListener('click', function () {
+            responseElement.style.display = "block"
+            responseElement.innerHTML = ""
+
             // Ensure monacoEditor is initialized before trying to get the value
             if (window.monacoEditor) {
                 var code = window.monacoEditor.getValue(); // Fetch code from editor
@@ -152,13 +163,40 @@ class Program {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(submission)
                 }).then(response => response.json())
-                    .then(data => console.log('Success:', data))
-                    .catch(error => console.error('Error:', error))
+                    .then(data => { 
+                        console.log('Success:', data)
+                        responseElement.innerHTML = data.submissionOutput
+                    })
+                    .catch(error => {
+                        console.error('Error:', error)
+                        responseElement.innerHTML = error
+                    })
 
             } else {
-                alert('Monaco Editor is not initialized yet');
+                responseElement.innerHTML = "Editor is not initialized yet."
+
+                // alert('Monaco Editor is not initialized yet');
             }
         });
+
     </script>
 
+    @* Utility *@
+    <script>
+
+        // Preventing Ctrl + S keycode
+        document.onkeydown = function (e) {
+            e = e || window.event; // Get event
+            if (e.ctrlKey) {
+                var c = e.which || e.keyCode; // Get key code
+                switch (c) {
+                    case 83: // Block Ctrl+S
+                        e.preventDefault();
+                        e.stopPropagation();
+                        break;
+                }
+            }
+        };
+
+    </script>
 }
