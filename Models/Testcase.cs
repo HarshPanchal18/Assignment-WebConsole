@@ -1,41 +1,28 @@
-﻿namespace AssignmentWebApplication.Model {
-    public class Testcase<Toutput> {
+﻿using AssignmentWebApplication.Models;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-        /*public Testcase(Toutput output, params (DataType, string)[] inputs) {
-            Inputs = inputs;
-            Output = output;
-        }
-
+namespace AssignmentWebApplication.Model {
+    public class TestCase {
         [Key]
         public int Id { get; set; }
-        [ForeignKey(nameof(Question.Id))]
 
+        [ForeignKey(nameof(Question.Id))]
         public int QuestionId { get; set; }
 
-        public (DataType, string)[] Inputs { get; set; }
+        public string Input { get; set; } // The input for the test case (this can be a serialized string for complex objects)
 
-        public Toutput Output { get; set; }
+        public string ExpectedOutput { get; set; } // The expected output of the test case
 
-        public string InputValueDatatype { get; set; }
+        // Optional: Maximum allowed execution time in milliseconds
+        public int? ExecutionTimeLimit { get; set; } = 2000; // Default to 2 seconds
 
-        public bool IsHidden { get; set; } = false;
+        // Optional: Maximum memory usage allowed (in kilobytes)
+        public int? MemoryLimit { get; set; } = 1024 * 64; // Default to 64MB
 
-        public string OutputValueDatatype { get; set; }
+        public bool IsEdgeCase { get; set; } = false; // Optional: Flag to indicate if this is an edge case
 
-        public bool Status { get; set; } = false;
-
-        public bool Deleted { get; set; } = false;
-
-        public DateTime? CreationTimestamp { get; set; }
-
-        public DateTime? UpdationTimestamp { get; set; }
-
-        public DateTime? DeletionTimestamp { get; set; }
-
-        public virtual Question Question { get; set; }*/
-
-        public static void greet() { }
-
+        public virtual Question Question { get; set; } // Relationship with the Question entity
     }
 
 }

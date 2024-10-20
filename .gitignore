@@ -1,3 +1,10 @@
 *.vs
 bin/
 obj/
+
+*.exe
+*.py
+/script.js
+*.c
+*.cpp
+*.class

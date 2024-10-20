@@ -4,7 +4,7 @@ namespace AssignmentWebApplication.Model {
     public class Student {
         [Key]
         public int Id { get; set; }
-
+        string Password { get; set; }
         public int RollNo { get; set; }
         public string Name { get; set; }
         public int Semester { get; set; }

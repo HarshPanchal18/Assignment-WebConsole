@@ -8,7 +8,9 @@ namespace AssignmentWebApplication.Model {
         public string Name { get; set; } // Teacher Name
         public string Type { get; set; } // Type of teacher (optional)
         public string Department { get; set; } // Teacher Department
+        string Password { get; set; } // Teacher Department
         public List<Subject> Subjects { get; set; } // List of subjects taught by the teacher
+        static string ROLE = "T";
 
         public Teacher() {
             Subjects = new List<Subject>();
