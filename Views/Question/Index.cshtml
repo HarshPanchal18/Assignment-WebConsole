@@ -13,10 +13,10 @@
         <tr>
             <th>@Html.DisplayNameFor(model => model.Description)</th>
             <th>@Html.DisplayNameFor(model => model.Status)</th>
-            <th>@Html.DisplayNameFor(model => model.Deleted)</th>
-            <th>@Html.DisplayNameFor(model => model.CreationTimestamp)</th>
-            <th>@Html.DisplayNameFor(model => model.UpdationTimestamp)</th>
-            <th>@Html.DisplayNameFor(model => model.DeletionTimestamp)</th>
+            <th>@Html.DisplayNameFor(model => model.IsDeleted)</th>
+            <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
+            <th>@Html.DisplayNameFor(model => model.UpdatedAt)</th>
+            <th>@Html.DisplayNameFor(model => model.DeletedAt)</th>
             <th>@Html.DisplayNameFor(model => model.FunctionSignature)</th>
             <th>@Html.DisplayNameFor(model => model.ParameterCount)</th>
             <th>@Html.DisplayNameFor(model => model.Assignment)</th>
@@ -29,10 +29,10 @@
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.Description)</td>
                 <td>@Html.DisplayFor(modelItem => item.Status)</td>
-                <td>@Html.DisplayFor(modelItem => item.Deleted)</td>
-                <td>@Html.DisplayFor(modelItem => item.CreationTimestamp)</td>
-                <td>@Html.DisplayFor(modelItem => item.UpdationTimestamp)</td>
-                <td>@Html.DisplayFor(modelItem => item.DeletionTimestamp)</td>
+                <td>@Html.DisplayFor(modelItem => item.IsDeleted)</td>
+                <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                <td>@Html.DisplayFor(modelItem => item.UpdatedAt)</td>
+                <td>@Html.DisplayFor(modelItem => item.DeletedAt)</td>
                 <td>@Html.DisplayFor(modelItem => item.FunctionSignature)</td>
                 <td>@Html.DisplayFor(modelItem => item.ParameterCount)</td>
                 <td>@Html.DisplayFor(modelItem => item.Assignment.Id)</td>

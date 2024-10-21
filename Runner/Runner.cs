@@ -44,7 +44,7 @@ public class Runner {
 
     public string RunCprogram(string sourceCode) {
 
-        string sourceFile = "program.c";
+        string sourceFile = "cProgram.c";
         File.WriteAllText(sourceFile, sourceCode); // Write source code to a file
 
         // Compile C++ code
@@ -95,7 +95,7 @@ public class Runner {
     }
 
     public string RunCppProgram(string sourceCode) {
-        string sourceFile = "program.cpp";
+        string sourceFile = "cppProgram.cpp";
         File.WriteAllText(sourceFile, sourceCode); // Write source code to a file
 
         // Compile C++ code
@@ -146,7 +146,7 @@ public class Runner {
 
     public string RunPythonProgram(string sourceCode) {
 
-        string pythonFile = "Program.py";
+        string pythonFile = "PyProgram.py";
         File.WriteAllText(pythonFile, sourceCode);
 
         // Run the Python interpreter
@@ -253,4 +253,5 @@ public class Runner {
             }
         }
     }
+
 }

@@ -2,9 +2,17 @@
 bin/
 obj/
 
-*.exe
 *.py
-/script.js
 *.c
 *.cpp
 *.class
+
+/cProgram.c
+/cppProgram.cpp
+/PyProgram.py
+/Program.java
+/Progam.class
+/script.js
+
+/cProgram.exe
+/cppProgram.exe

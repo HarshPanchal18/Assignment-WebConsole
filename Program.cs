@@ -1,4 +1,4 @@
-using AssignmentWebApplication.Data;
+﻿using AssignmentWebApplication.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -28,7 +28,7 @@ namespace AssignmentWebApplication.Controllers {
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Question question) {
             if (ModelState.IsValid) {
-                question.CreationTimestamp = DateTime.Now;
+                question.CreatedAt = DateTime.Now;
                 context.Add(question);
                 await context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index)); // Redirect to your index page or another page
@@ -58,6 +58,7 @@ namespace AssignmentWebApplication.Controllers {
                 return NotFound();
 
             if (ModelState.IsValid) {
+                question.UpdatedAt = DateTime.Now;
                 context.Questions.Update(question);
                 await context.SaveChangesAsync();
                 try {
@@ -95,7 +96,9 @@ namespace AssignmentWebApplication.Controllers {
             if (question == null)
                 return NotFound();
 
-            context.Questions.Remove(question);
+            question.IsDeleted = true;
+            question.DeletedAt = DateTime.Now;
+            context.Questions.Update(question);
             await context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

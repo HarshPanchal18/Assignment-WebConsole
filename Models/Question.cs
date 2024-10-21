@@ -5,6 +5,7 @@ namespace AssignmentWebApplication.Models {
     public class Question {
         [Key]
         public int Id { get; set; }
+        public string Name { get; set; }
 
         [ForeignKey(nameof(Assignment.Id))]
         public int AssignmentId { get; set; } = 0;
@@ -13,13 +14,13 @@ namespace AssignmentWebApplication.Models {
 
         public bool Status { get; set; } = false;
 
-        public bool Deleted { get; set; } = false;
+        public bool IsDeleted { get; set; } = false;
 
-        public DateTime? CreationTimestamp { get; set; } = DateTime.Now;
+        public DateTime? CreatedAt { get; set; } = DateTime.Now;
 
-        public DateTime? UpdationTimestamp { get; set; } = DateTime.Now;
+        public DateTime? UpdatedAt { get; set; } = DateTime.Now;
 
-        public DateTime? DeletionTimestamp { get; set; } = DateTime.Now;
+        public DateTime? DeletedAt { get; set; } = DateTime.Now;
 
         public string FunctionSignature { get; set; } = string.Empty;
 
