@@ -206,7 +206,7 @@ public class Runner {
         // Step 3: Run the compiled Java program using the java command
         Process runProcess = new Process();
         runProcess.StartInfo.FileName = "java"; // Ensure the Java runtime is installed
-        runProcess.StartInfo.Arguments = "Program"; // Run the compiled Java class
+        runProcess.StartInfo.Arguments = "-classpath . Program"; // Run the compiled Java class
         runProcess.StartInfo.RedirectStandardOutput = true;
         runProcess.StartInfo.RedirectStandardError = true;
         runProcess.StartInfo.UseShellExecute = false;

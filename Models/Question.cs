@@ -5,7 +5,7 @@ namespace AssignmentWebApplication.Models {
     public class Question {
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         [ForeignKey(nameof(Assignment.Id))]
         public int AssignmentId { get; set; } = 0;

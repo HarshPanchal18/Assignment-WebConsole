@@ -11,7 +11,7 @@ namespace AssignmentWebApplication.Models {
         public int StudentId { get; set; } // StudentId whose submission
         //[ForeignKey(nameof(Subject.Code))]
         public int SubjectId { get; set; }
-        public string Content { get; set; } // Assignment Content
+        public string? Content { get; set; } // Assignment Content
         public int Semester { get; set; } // Assignment Semester
 
         public Assignment() { }

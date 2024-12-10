@@ -26,7 +26,9 @@ namespace AssignmentWebApplication.Controllers {
         // POST: Question/Create
         [HttpPost("Create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Question question) {
+        public async Task<IActionResult> Create(
+            [Bind("Id,AssignmentId,Name,Description,Status,IsDeleted,CreatedAt,UpdatedAt,DeletedAt,FunctionSignature,ParameterCount")]
+            Question question) {
             if (ModelState.IsValid) {
                 question.CreatedAt = DateTime.Now;
                 context.Add(question);
@@ -42,35 +44,40 @@ namespace AssignmentWebApplication.Controllers {
             if (id == null)
                 return NotFound();
 
-            var student = await context.Questions.FindAsync(id);
-            if (student == null)
+            var question = await context.Questions.FindAsync(id);
+            if (question == null)
                 return NotFound();
 
-            return View(student);
+            return View(question);
         }
 
         // POST: /Student/Edit/2
         [HttpPost("Edit/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,AssignmentId,Description,Status,Deleted,CreationTimestamp,UpdationTimestamp,DeletionTimestamp,FunctionSignature,ParameterCount")] Question question) {
+        public async Task<IActionResult> Edit(int? id,
+            [Bind("Id,Name,Description,Status,IsDeleted,UpdatedAt,FunctionSignature,ParameterCount")]
+            Question question
+        ) {
 
             if (id != question.Id)
                 return NotFound();
 
-            if (ModelState.IsValid) {
+            //            if (ModelState.IsValid) {
+            try {
+                //question.AssignmentId = 1;
                 question.UpdatedAt = DateTime.Now;
                 context.Questions.Update(question);
                 await context.SaveChangesAsync();
-                try {
-                } catch (DbUpdateConcurrencyException) {
-                    if (!QuestionExists(question.Id)) {
-                        return NotFound();
-                    } else {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+            } catch (DbUpdateConcurrencyException) {
+                if (!QuestionExists(question.Id))
+                    return NotFound();
+                else
+                    throw;
             }
+            return RedirectToAction(nameof(Index));
+            /*} else {
+                return NotFound();
+            }*/
 
             return View(question);
         }
@@ -96,14 +103,27 @@ namespace AssignmentWebApplication.Controllers {
             if (question == null)
                 return NotFound();
 
-            question.IsDeleted = true;
+            question.UpdatedAt = DateTime.Now;
             question.DeletedAt = DateTime.Now;
+            question.IsDeleted = true;
+
             context.Questions.Update(question);
             await context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool QuestionExists(int id) => context.Questions.Any(e => e.Id == id);
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id) {
+            var question = await context.Questions.FindAsync(id);
+            if (question != null)
+                context.Questions.Remove(question);
+
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
         // GET: Question/Details/5
         [HttpGet("Details/{id}")]
